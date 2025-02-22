@@ -34,5 +34,6 @@ public class AppointmentDto {
         this.vehicleProblem = appointment.getVehicleProblem();
         this.pickUpAndDropService = appointment.getPickUpAndDropService();
         this.userId=appointment.getUserId();
+
     }
 }
