@@ -17,6 +17,7 @@ public class AppointmentDto {
     private String workType;
     private String vehicleProblem;
     private String pickUpAndDropService;
+    private Integer userId;
 
     public AppointmentDto(Appointment appointment) {
         this.appointmentId = appointment.getAppointmentId();
@@ -32,5 +33,6 @@ public class AppointmentDto {
         this.workType = appointment.getWorkType();
         this.vehicleProblem = appointment.getVehicleProblem();
         this.pickUpAndDropService = appointment.getPickUpAndDropService();
+        this.userId=appointment.getUserId();
     }
 }
