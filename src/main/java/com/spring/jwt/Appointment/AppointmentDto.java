@@ -33,6 +33,5 @@ public class AppointmentDto {
         this.workType = appointment.getWorkType();
         this.vehicleProblem = appointment.getVehicleProblem();
         this.pickUpAndDropService = appointment.getPickUpAndDropService();
-
     }
 }
