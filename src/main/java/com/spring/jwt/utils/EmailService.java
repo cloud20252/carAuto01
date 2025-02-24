@@ -42,7 +42,7 @@ public class EmailService {
                 "<p>You have requested to reset your password. Please click the button below to reset your password:</p>" +
                 "<a href='" + resetLink + "' style='display: inline-block; margin: 20px 0; padding: 10px 20px; color: #ffffff; background-color: #007bff; text-decoration: none; border-radius: 5px;'>Reset My Password</a>" +
                 "<p>If you did not request this, please ignore this email.</p>" +
-                "<p>Thank you,<br>CarTechIndia.com</p>" +
+                "<p>Thank you,<br>AutoCarCare.com</p>" +
                 "</div>" +
                 "</body>" +
                 "</html>";

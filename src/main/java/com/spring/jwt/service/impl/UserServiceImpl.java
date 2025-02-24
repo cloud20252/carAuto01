@@ -35,8 +35,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    private final JavaMailSender mailSender;
-
     private final EmailVerificationRepo emailVerificationRepo;
 
     private final RoleRepository roleRepository;
@@ -156,7 +154,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<UserDTO> getAllUsers(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<User> userPage = userRepository.findAll(pageable);
+        Page<User> userPage = userRepository.findAllWithRoles(pageable);
 
         if (userPage.isEmpty()) throw new UserNotFoundExceptions("User not found", HttpStatus.NOT_FOUND);
 
