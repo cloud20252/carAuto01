@@ -33,8 +33,9 @@ public class GlobalException extends ResponseEntityExceptionHandler {
                 .message(e.getMessage())
                 .build();
 
-        return ResponseEntity.ok(response);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(Integer.parseInt(e.getCode())));
     }
+
 
     @ExceptionHandler(UserNotFoundExceptions.class)
     public ResponseEntity<ErrorResponseDto> handleCardAlreadyExistsException(UserNotFoundExceptions exception,
