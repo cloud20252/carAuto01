@@ -65,4 +65,7 @@ public class Appointment {
 
     @Column
     private Integer userId;
+
+    @Column
+    private String status;
 }
