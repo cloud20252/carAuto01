@@ -2,7 +2,6 @@ package com.spring.jwt.dto;
 
 import com.spring.jwt.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
