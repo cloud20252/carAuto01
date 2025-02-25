@@ -104,7 +104,7 @@ public class UserController {
         String token = RandomStringUtils.randomAlphabetic(40);
         userService.updateResetPassword(token, email);
 
-        String resetPasswordLink = "http://localhost:8080/user/reset-password?token=" + token;
+        String resetPasswordLink = "http://localhost:5173/user/reset-password?token=" + token;
         ResponseDto response = userService.forgotPass(email, resetPasswordLink, request.getServerName());
 
         return ResponseEntity.ok(new ResponseDto("Successful", response.getMessage()));
