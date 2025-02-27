@@ -1,5 +1,6 @@
 package com.spring.jwt.entity;
 
+import com.spring.jwt.VehicleReg.VehicleRegDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,7 +12,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Vehicle {
+public class VehicleReg {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -25,7 +26,7 @@ public class Vehicle {
             strategy = GenerationType.SEQUENCE,
             generator = "primary_sequence"
     )
-    private Integer vehicleId;
+    private Integer vehicleRegId;
 
     @Column
     private Integer appointmentId;
@@ -51,5 +52,29 @@ public class Vehicle {
     @Column(length = 45)
     private String worker;
 
+    @Column
+    private String status;
 
+    @Column
+    private Integer userId;
+
+    @Column
+    private String date;
+
+    public VehicleReg() {
+    }
+
+    public VehicleReg(VehicleRegDto vehicleRegDto) {
+        this.vehicleRegId = vehicleRegDto.getVehicleRegId();
+        this.appointmentId = vehicleRegDto.getAppointmentId();
+        this.chasisNumber = vehicleRegDto.getChasisNumber();
+        this.customerAddress = vehicleRegDto.getCustomerAddress();
+        this.customerAadharNo = vehicleRegDto.getCustomerAadharNo();
+        this.customerGstin = vehicleRegDto.getCustomerGstin();
+        this.superwiser = vehicleRegDto.getSuperwiser();
+        this.technician = vehicleRegDto.getTechnician();
+        this.worker = vehicleRegDto.getWorker();
+        this.status = vehicleRegDto.getStatus();
+        this.date=vehicleRegDto.getDate();
+    }
 }
