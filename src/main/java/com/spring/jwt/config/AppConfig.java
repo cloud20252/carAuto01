@@ -105,6 +105,7 @@ public class AppConfig {
                 .requestMatchers("/user/**").permitAll()
                 .requestMatchers("/emailVerification/**").permitAll()
                 .requestMatchers("/appointments/**").permitAll()
+                .requestMatchers("/vehicle-reg/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(manager)
