@@ -41,7 +41,6 @@ public class VehicleRegController {
             VehicleRegDto createdVehicleReg = vehicleRegService.createVehicleReg(vehicleRegDto);
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(ResponseDto.success("Vehicle Registration created successfully", createdVehicleReg));
-
         } catch (BadRequestException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(ResponseDto.error("Invalid input", e.getMessage()));
