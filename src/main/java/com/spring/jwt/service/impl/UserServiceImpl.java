@@ -1,5 +1,6 @@
 package com.spring.jwt.service.impl;
 
+import com.spring.jwt.MapperClasses.UserMapper;
 import com.spring.jwt.dto.UserDTO;
 import com.spring.jwt.dto.UserUpdateRequest;
 import com.spring.jwt.entity.Role;
@@ -43,45 +44,28 @@ public class UserServiceImpl implements UserService {
 
     private final EmailService emailService;
 
+    private final UserMapper userMapper;
     @Override
     public BaseResponseDTO registerAccount(UserDTO userDTO) {
-        BaseResponseDTO response = new BaseResponseDTO();
-
         validateAccount(userDTO);
 
-        User user = insertUser(userDTO);
+        emailVerificationRepo.findByEmail(userDTO.getEmail())
+                .filter(ev -> EmailVerification.STATUS_VERIFIED.equals(ev.getStatus()))
+                .orElseThrow(() -> new EmailNotVerifiedException("Email not verified"));
 
+        return saveUser(userMapper.toEntity(userDTO));
+    }
+
+    private BaseResponseDTO saveUser(User user) {
         try {
             userRepository.save(user);
-            response.setCode(String.valueOf(HttpStatus.OK.value()));
-            response.setMessage("Account Created Successfully !!");
+            return new BaseResponseDTO(String.valueOf(HttpStatus.OK.value()), "Account Created Successfully!");
         } catch (Exception e) {
-            response.setCode(String.valueOf(HttpStatus.SERVICE_UNAVAILABLE.value()));
-            response.setMessage("Service unavailable");
+            return new BaseResponseDTO(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()),
+                    "Error while creating account: " + e.getMessage());
         }
-        return response;
     }
 
-    private User insertUser(UserDTO userDTO) {
-        Optional<EmailVerification> emailVerificationOpt = emailVerificationRepo.findByEmail(userDTO.getEmail());
-
-        if (emailVerificationOpt.isEmpty() ||
-                EmailVerification.STATUS_NOT_VERIFIED.equals(emailVerificationOpt.get().getStatus())) {
-            throw new EmailNotVerifiedException("Email not verified");
-        }
-
-        User user = new User();
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setMobileNumber(userDTO.getMobileNumber());
-        user.setAddress(userDTO.getAddress());
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findByName(userDTO.getRole()));
-        user.setRoles(roles);
-        return user;
-    }
 
     private void validateAccount(UserDTO userDTO) {
         if (ObjectUtils.isEmpty(userDTO)) {
