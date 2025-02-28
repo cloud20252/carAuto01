@@ -110,17 +110,6 @@ public class UserController {
         return ResponseEntity.ok(new ResponseDto("Successful", response.getMessage()));
     }
 
-    @GetMapping("/reset-password")
-    public ResponseEntity<String> getResetPasswordPage(@RequestParam String token) {
-        try {
-            ClassPathResource resource = new ClassPathResource("templates/reset-password.html");
-            String htmlContent = Files.readString(Paths.get(resource.getURI()), StandardCharsets.UTF_8);
-            return ResponseEntity.ok().contentType(MediaType.TEXT_HTML).body(htmlContent);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error loading HTML file");
-        }
-    }
-
     @PostMapping("/update-password")
     public ResponseEntity<ResponseDto> updatePassword(@RequestBody ResetPassword request) {
         if (!request.getPassword().equals(request.getConfirmPassword())) {

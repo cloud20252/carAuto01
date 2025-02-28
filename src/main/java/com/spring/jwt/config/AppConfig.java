@@ -88,7 +88,6 @@ public class AppConfig {
                 .csrf().disable()
                 .formLogin().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/account/**").permitAll()
                 .requestMatchers(
                         "/api/v1/auth/**",
                         "/v2/api-docs",
@@ -106,6 +105,7 @@ public class AppConfig {
                 .requestMatchers("/emailVerification/**").permitAll()
                 .requestMatchers("/appointments/**").permitAll()
                 .requestMatchers("/vehicle-reg/**").permitAll()
+                .requestMatchers("/sparePartManagement/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(manager)
