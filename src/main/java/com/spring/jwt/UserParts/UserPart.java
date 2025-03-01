@@ -1,7 +1,6 @@
-package com.spring.jwt.SparePart;
-
+package com.spring.jwt.UserParts;
+import com.spring.jwt.SparePart.SparePart;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import java.time.LocalDate;
@@ -13,24 +12,26 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SparePart {
+public class UserPart {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "sparePart_seq")
-    @SequenceGenerator(name = "sparePart_seq", sequenceName = "sparePart_seq", allocationSize = 1, initialValue = 10000)
-    @Column(name = "sparePartId")
-    private Integer sparePartId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer userPartId;
+
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
+
+    @Column(name = "lastUpdate", nullable = false)
+    private String lastUpdate;
 
     @Column(name = "part_name", nullable = false)
     private String partName;
 
     @Column(name = "description", nullable = false)
-    @NotBlank(message = "manufacturer name cannot be blank")
     @Size(max = 5000, message = "Description cannot exceed 5000 characters")
     private String description;
 
     @Column(name = "manufacturer", nullable = false)
-    @NotBlank(message = "manufacturer name cannot be blank")
     private String manufacturer;
 
     @Column(name = "price", nullable = false)
@@ -40,12 +41,16 @@ public class SparePart {
     private LocalDate updateAt;
 
     @ElementCollection
-    @CollectionTable(name = "spare_part_photos", joinColumns = @JoinColumn(name = "spare_part_id"))
     @Column(name = "photo", columnDefinition = "LONGBLOB")
     private List<byte[]> photo;
 
     @Column(name = "part_number", nullable = false)
     private Long partNumber;
+
+
+    @ManyToOne
+    @JoinColumn(name = "sparePartId", referencedColumnName = "sparePartId")
+    private SparePart sparePart;
 
 
 }
