@@ -3,6 +3,10 @@ package com.spring.jwt.SparePart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Base64;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 @RequiredArgsConstructor
 public class SparePartMapper {
@@ -35,5 +39,23 @@ public class SparePartMapper {
                 .updateAt(dto.getUpdateAt())
                 .partNumber(dto.getPartNumber())
                 .build();
+    }
+
+    private List<String> convertPhotosToBase64(List<byte[]> photos) {
+        if (photos == null) {
+            return List.of();
+        }
+        return photos.stream()
+                .map(photo -> Base64.getEncoder().encodeToString(photo))
+                .collect(Collectors.toList());
+    }
+
+    private List<byte[]> convertBase64ToPhotos(List<String> photos) {
+        if (photos == null) {
+            return List.of();
+        }
+        return photos.stream()
+                .map(photo -> Base64.getDecoder().decode(photo))
+                .collect(Collectors.toList());
     }
 }
