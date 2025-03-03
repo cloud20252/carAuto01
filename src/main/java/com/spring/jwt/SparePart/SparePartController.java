@@ -2,8 +2,10 @@ package com.spring.jwt.SparePart;
 
 import com.spring.jwt.utils.BaseResponseDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -67,5 +69,13 @@ public class SparePartController {
         return ResponseEntity.ok(updatedPart);
     }
 
+    @PreAuthorize("permitAll")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<BaseResponseDTO> deleteSparePart(
+            @PathVariable Integer id,
+            @RequestParam(required = false) Integer photoIndex) {
+        BaseResponseDTO response = sparePartService.deleteSparePartById(id, photoIndex);
+        return ResponseEntity.ok(response);
+    }
 
 }

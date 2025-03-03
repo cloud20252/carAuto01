@@ -1,5 +1,6 @@
 package com.spring.jwt.Appointment;
 
+import com.spring.jwt.MapperClasses.AppointmentMapper;
 import com.spring.jwt.entity.Appointment;
 import com.spring.jwt.exception.UserNotFoundExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,24 +32,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public AppointmentDto saveAppointment(AppointmentDto appointmentDto) {
-        Appointment appointment = new Appointment();
-        appointment.setAppointmentDate(appointmentDto.getAppointmentDate());
-        appointment.setCustomerName(appointmentDto.getCustomerName());
-        appointment.setMobileNo(appointmentDto.getMobileNo());
-        appointment.setVehicleNo(appointmentDto.getVehicleNo());
-        appointment.setVehicleMaker(appointmentDto.getVehicleMaker());
-        appointment.setVehicleModel(appointmentDto.getVehicleModel());
-        appointment.setManufacturedYear(appointmentDto.getManufacturedYear());
-        appointment.setKilometerDriven(appointmentDto.getKilometerDriven());
-        appointment.setFuelType(appointmentDto.getFuelType());
-        appointment.setWorkType(appointmentDto.getWorkType());
-        appointment.setVehicleProblem(appointmentDto.getVehicleProblem());
-        appointment.setPickUpAndDropService(appointmentDto.getPickUpAndDropService());
-        appointment.setStatus(appointmentDto.getStatus());
-        appointment.setUserId(appointmentDto.getUserId());
-
+        Appointment appointment = AppointmentMapper.toEntity(appointmentDto);
         appointment = appointmentRepository.save(appointment);
-        return new AppointmentDto(appointment);
+        return AppointmentMapper.toDto(appointment);
     }
 
     @Override

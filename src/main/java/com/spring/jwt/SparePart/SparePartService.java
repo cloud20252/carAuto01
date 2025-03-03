@@ -16,5 +16,6 @@ public interface SparePartService {
 
     public SparePartDto updatePart(Integer id, String partName, String description, String manufacturer, Long price, Long partNumber, List<MultipartFile> photos);
 
+    public BaseResponseDTO deleteSparePartById(Integer id, Integer photoIndex);
 
 }
