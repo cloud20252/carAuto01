@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface VehicleRegRepository extends JpaRepository<VehicleReg, Integer> {
@@ -16,4 +17,6 @@ public interface VehicleRegRepository extends JpaRepository<VehicleReg, Integer>
     List<VehicleReg> findByDateBetween(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
     List<VehicleReg> findByStatus(String status);
+
+    Optional<Object> findByAppointmentId(Integer appointmentId);
 }

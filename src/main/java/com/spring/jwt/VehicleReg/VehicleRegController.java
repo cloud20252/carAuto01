@@ -90,4 +90,14 @@ public class VehicleRegController {
             return ResponseDto.error("Error fetching vehicle registrations by date range", e.getMessage());
         }
     }
+    @GetMapping("/getByAppointmentId")
+    public ResponseDto<VehicleRegDto> getVehicleRegByAppointmentId(@RequestParam Integer appointmentId) {
+        try {
+            VehicleRegDto vehicleRegDto = vehicleRegService.getVehicleRegByAppointmentId(appointmentId);
+            return ResponseDto.success("Vehicle Registration found for appointment ID", vehicleRegDto);
+        } catch (Exception e) {
+            return ResponseDto.error("Vehicle Registration not found for appointment ID", e.getMessage());
+        }
+    }
+
 }
