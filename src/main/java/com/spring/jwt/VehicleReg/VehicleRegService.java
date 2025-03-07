@@ -14,4 +14,6 @@ public interface VehicleRegService {
     List<VehicleRegDto> getByStatus(String status);
 
     public List<VehicleRegDto> getByDateRange(String startDate, String endDate);
+
+    VehicleRegDto getVehicleRegByAppointmentId(Integer appointmentId);
 }

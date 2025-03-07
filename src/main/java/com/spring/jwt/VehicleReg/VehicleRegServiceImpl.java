@@ -103,6 +103,14 @@ public class VehicleRegServiceImpl implements VehicleRegService {
         }
     }
 
+    @Override
+    public VehicleRegDto getVehicleRegByAppointmentId(Integer appointmentId) {
+        VehicleReg vehicleReg = (VehicleReg) vehicleRegRepository.findByAppointmentId(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Vehicle registration not found for appointment ID: " + appointmentId));
+        return new VehicleRegDto(vehicleReg);
+    }
+
+
 
     private void copyDtoToEntity(VehicleRegDto vehicleRegDto, VehicleReg vehicleReg) {
         vehicleReg.setVehicleRegId(vehicleRegDto.getVehicleRegId());
